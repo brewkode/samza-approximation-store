@@ -1,6 +1,8 @@
+import sbt.Tests.Setup
+
 name := "samza-bloomfilter-store"
 
-appVersion := "0.1"
+def appVersion() = sys.env.getOrElse("GO_PIPELINE_LABEL", "0.1.0-SNAPSHOT")
 
 val samzaVersion = "0.10.0.8-indix"
 val samzaApi = "org.apache.samza" % "samza-api" % samzaVersion
@@ -21,13 +23,18 @@ val excludeDepsForLive = Seq("junit.*", "jets3t.*")
 
 lazy val commonSettings = Seq(
   organization := "samza.contrib.store",
-  version := appVersion,
+  version := appVersion(),
   scalaVersion := "2.10.4",
   fork in run := false,
   resolvers ++= Seq(
     Resolver.sonatypeRepo("snapshots"),
     "Indix Maven" at "http://artifacts.indix.tv:8081/artifactory/libs-release",
     "morphia.googlecode.com" at "http://morphia.googlecode.com/svn/mavenrepo/"
+  ),
+  testOptions += Setup( cl =>
+      cl.loadClass("org.slf4j.LoggerFactory").
+        getMethod("getLogger",cl.loadClass("java.lang.String")).
+        invoke(null,"ROOT")
   ),
   parallelExecution in This := false,
   publishMavenStyle := true,
@@ -37,7 +44,7 @@ lazy val commonSettings = Seq(
   publishArtifact in(Compile, packageSrc) := true,
 
   publishTo <<= version { v =>
-    if (appVersion.endsWith("-SNAPSHOT"))
+    if (appVersion().endsWith("-SNAPSHOT"))
       Some("Indix Snapshot Artifactory" at "http://artifacts.indix.tv:8081/artifactory/libs-snapshot-local")
     else
       Some("Indix Release Artifactory" at "http://artifacts.indix.tv:8081/artifactory/libs-release-local")
@@ -47,7 +54,6 @@ lazy val commonSettings = Seq(
 
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
-  settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*).
   settings(
     name := "samza-bloomfilter-store",
     libraryDependencies ++= Seq(
