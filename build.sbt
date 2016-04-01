@@ -1,6 +1,6 @@
 import sbt.Tests.Setup
 
-name := "samza-bloomfilter-store"
+name := "samza-approximation-store"
 
 def appVersion() = sys.env.getOrElse("GO_PIPELINE_LABEL", "0.1.0-SNAPSHOT")
 
@@ -52,7 +52,7 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
   settings(
-    name := "samza-bloomfilter-store",
+    name := "samza-approximation-store",
     libraryDependencies ++= Seq(
       samzaCore, samzaKV, samzaLog4j, slf4jLog4j12, guava, scalaTest, mockito
     )
