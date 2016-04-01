@@ -4,17 +4,14 @@ name := "samza-bloomfilter-store"
 
 def appVersion() = sys.env.getOrElse("GO_PIPELINE_LABEL", "0.1.0-SNAPSHOT")
 
-val samzaVersion = "0.10.0.8-indix"
-val samzaApi = "org.apache.samza" % "samza-api" % samzaVersion
+val samzaVersion = "0.10.0.11-indix"
 val samzaCore = "org.apache.samza" % "samza-core_2.10" % samzaVersion
-val samzaYarn = "org.apache.samza" % "samza-yarn_2.10" % samzaVersion
 val samzaKafka = "org.apache.samza" % "samza-kafka_2.10" % samzaVersion
-val kafka = "org.apache.kafka" % "kafka_2.10" % "0.8.2.1"
-val hadoopHdfs = "org.apache.hadoop" % "hadoop-hdfs" % "2.4.0"
-val hadoopAws = "org.apache.hadoop" % "hadoop-aws" % "2.6.0"
+val samzaKV = "org.apache.samza" % "samza-kv_2.10" % samzaVersion
 val samzaLog4j = "org.apache.samza" % "samza-log4j" % samzaVersion
 val slf4jLog4j12 = "org.slf4j" % "slf4j-log4j12" % "1.6.2" % "runtime"
 val samzaTest = "org.apache.samza" % "samza-test_2.10" % samzaVersion
+val guava = "com.google.guava" % "guava" % "11.0"
 
 val scalaTest = "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 val mockito = "org.mockito" % "mockito-all" % "1.9.5"
@@ -57,6 +54,6 @@ lazy val root = (project in file(".")).
   settings(
     name := "samza-bloomfilter-store",
     libraryDependencies ++= Seq(
-      scalaTest, mockito
+      samzaCore, samzaKV, samzaLog4j, slf4jLog4j12, guava, scalaTest, mockito
     )
   )  
