@@ -8,5 +8,5 @@ But, there are lot of scenarios where we might need other kind of stores. For so
 This project aims to add support for such stores for Samza.
 
 Algorithm catalog:
-- [x] Set membership - Bloomfilter
+- [x] Set membership - Bloomfilter - Jira - SAMZA-314
 - [ ] Unique count - HyperLogLog
