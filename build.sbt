@@ -11,7 +11,7 @@ val samzaKV = "org.apache.samza" % "samza-kv_2.10" % samzaVersion
 val samzaLog4j = "org.apache.samza" % "samza-log4j" % samzaVersion
 val slf4jLog4j12 = "org.slf4j" % "slf4j-log4j12" % "1.6.2" % "runtime"
 val samzaTest = "org.apache.samza" % "samza-test_2.10" % samzaVersion
-val guava = "com.google.guava" % "guava" % "11.0"
+val guava = "com.google.guava" % "guava" % "18.0"
 
 val scalaTest = "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 val mockito = "org.mockito" % "mockito-all" % "1.9.5"
